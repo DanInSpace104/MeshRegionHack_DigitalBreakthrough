@@ -58,7 +58,7 @@ class ReportInfo(models.Model):
 
 class Currency(models.Model):
     name = models.CharField(max_length=127)
-    code = models.CharField(max_length=7, null=True)
+    code = models.CharField(max_length=7, null=True, unique=True)
     course = models.FloatField(null=True)
 
     def __str__(self):
