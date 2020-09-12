@@ -13,6 +13,9 @@ from .serializers import (
 def accts(request):
     return render(request, 'reports/accts.html')
 
+def createacct(request):
+    return render(request, 'reports/createacct.html')
+
 
 class CompanysViewSet(viewsets.ModelViewSet):
     model = Company

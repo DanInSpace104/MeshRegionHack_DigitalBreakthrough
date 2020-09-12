@@ -13,5 +13,6 @@ urlpatterns = [
     path('', include(router.urls)),
     # path('companys/', views.CompanysListView.as_view())
     path('api/', include('rest_framework.urls')),
-    path('accts/', views.accts)
+    path('accts/', views.accts),
+    path('createacct/', views.createacct)
 ]
