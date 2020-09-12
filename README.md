@@ -1,0 +1,3 @@
+Stack:
+* Django REST
+* AJAX
