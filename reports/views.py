@@ -2,7 +2,13 @@ from django.shortcuts import render
 from django.views.generic import ListView
 from rest_framework import viewsets, permissions
 from .models import Company, Account, Bank, Currency
-from .serializers import CompanySerializer, BankSerializer, AccountSerializer, CurrencySerializer
+from .serializers import (
+    CompanySerializer,
+    BankSerializer,
+    AccountSerializer,
+    CurrencySerializer,
+    BankBikSerializer,
+)
 
 
 def index(request):
@@ -25,6 +31,11 @@ class BanksViewSet(viewsets.ModelViewSet):
     queryset = Bank.objects.all()
     serializer_class = BankSerializer
     permission_classes = [permissions.IsAuthenticated]
+
+
+class BankBiksViewSet(viewsets.ReadOnlyModelViewSet):
+    serializer_class = BankBikSerializer
+    queryset = Bank.objects.all()
 
 
 class AccountsViewSet(viewsets.ModelViewSet):

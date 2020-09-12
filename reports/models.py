@@ -31,6 +31,7 @@ class BankInfo(models.Model):
     bank = models.ForeignKey(Bank, on_delete=models.CASCADE, related_name='infos')
     bik = models.IntegerField(unique=True)
     creation_time = models.DateTimeField(auto_now=True)
+    name = models.CharField(max_length=127, default='')
 
     def __str__(self):
         return str(self.bank) + ' ' + str(self.creation_time)
