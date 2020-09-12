@@ -1,0 +1,5 @@
+[client]
+database = main
+user = root
+password = 1
+default-character-set = utf8
