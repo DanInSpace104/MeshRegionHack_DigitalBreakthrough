@@ -12,5 +12,6 @@ router.register('bankbiks', views.BankBiksViewSet, basename='bankbiks')
 urlpatterns = [
     path('', include(router.urls)),
     # path('companys/', views.CompanysListView.as_view())
-    path('api/', include('rest_framework.urls'))
+    path('api/', include('rest_framework.urls')),
+    path('accts/', views.accts)
 ]

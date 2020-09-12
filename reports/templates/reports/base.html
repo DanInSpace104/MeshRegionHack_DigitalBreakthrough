@@ -1,1 +1,22 @@
-<h1>aaa</h1>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% load static %}
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="https://getbootstrap.com/docs/4.0/assets/img/favicons/favicon.ico"> {% block title %}{% endblock %}
+    <link rel="stylesheet" href="{% static 'style/bootstrap.css' %}"> {% block styles %}{% endblock %}
+</head>
+
+<body>
+
+    {% block header %} {% endblock %} {% block content %} {% endblock %} {% block bottomscript %} {% endblock %} {% block footer %} {% endblock %}
+    <script src="{% static 'js/jquery-3.2.1.slim.min.js'%}" crossorigin="anonymous "></script>
+    <script src="{% static 'js/bootstrap.min.js'%}"></script>
+    </div>
+</body>
+
+</html>
