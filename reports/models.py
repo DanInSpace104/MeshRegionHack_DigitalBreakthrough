@@ -18,9 +18,13 @@ class CompanyInfo(models.Model):
 
 class Bank(models.Model):
     name = models.CharField(max_length=127)
-    pass
-    # def __str__(self):
-    #     return self.infos.get()
+
+    @property
+    def last_info(self):
+        return self.infos.all().order_by('creation_time')[0]
+
+    def __str__(self):
+        return self.name
 
 
 class BankInfo(models.Model):
@@ -49,10 +53,25 @@ class ReportInfo(models.Model):
         return self.name
 
 
+class Currency(models.Model):
+    name = models.CharField(max_length=127)
+
+    def __str__(self):
+        return self.name
+
+
 class Account(models.Model):
     bank = models.ForeignKey(Bank, on_delete=models.PROTECT)
-
-    RUB = 'RUB'
-    USD = 'USD'
-    CURRENCY_CHOISES = ((RUB, 'rub'), (USD, 'usd'))
-    currency = models.CharField(max_length=15, choices=CURRENCY_CHOISES)
+    currency = models.ForeignKey(Currency, on_delete=models.PROTECT)
+    CRED = 'credit'
+    DEP = 'deposit'
+    ACCOUNT_TYPES = (
+        (DEP, 'deposit'),
+        (CRED, 'credit'),
+    )
+    acc_type = models.CharField(max_length=15, choices=ACCOUNT_TYPES, default=DEP)
+    money = models.FloatField(default=0)
+    contract_create_date = models.DateField(auto_now=True)
+    contract_begin_date = models.DateField()
+    contract_end_date = models.DateField()
+    settlement_rate = models.FloatField(default=0)
