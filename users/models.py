@@ -5,6 +5,3 @@ from django.contrib.auth.models import User
 class UserInfo(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     text = models.TextField()
-
-
-# class Positions()

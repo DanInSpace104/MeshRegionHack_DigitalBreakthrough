@@ -26,6 +26,7 @@ class AccountSerializer(serializers.ModelSerializer):
     currency_name = serializers.ReadOnlyField(source='currency.name')
     bank_name = serializers.ReadOnlyField(source='bank.name')
     bik = serializers.ReadOnlyField(source='bank.last_info.bik')
+    company_name = serializers.ReadOnlyField(source='company.name')
     class Meta:
         model = Account
         fields = '__all__'

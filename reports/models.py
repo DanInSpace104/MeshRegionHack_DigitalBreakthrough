@@ -1,8 +1,10 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 
 class Company(models.Model):
     name = models.CharField(max_length=127)
+    users = models.ManyToManyField(User)
 
     def __str__(self):
         return self.name
@@ -56,6 +58,8 @@ class ReportInfo(models.Model):
 
 class Currency(models.Model):
     name = models.CharField(max_length=127)
+    code = models.CharField(max_length=7, null=True)
+    course = models.FloatField(null=True)
 
     def __str__(self):
         return self.name
@@ -63,6 +67,7 @@ class Currency(models.Model):
 
 class Account(models.Model):
     bank = models.ForeignKey(Bank, on_delete=models.PROTECT)
+    company = models.ForeignKey(Company, null=True, on_delete=models.CASCADE)
     currency = models.ForeignKey(Currency, on_delete=models.PROTECT)
     CRED = 'credit'
     DEP = 'deposit'

@@ -1,5 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView
+from rest_framework import generics
 from rest_framework import viewsets, permissions
 from .models import Company, Account, Bank, Currency
 from .serializers import (
@@ -38,9 +39,25 @@ class BankBiksViewSet(viewsets.ReadOnlyModelViewSet):
 
 class AccountsViewSet(viewsets.ModelViewSet):
     model = Account
-    queryset = Account.objects.all()
     serializer_class = AccountSerializer
     permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        user = self.request.user
+        companys = Company.objects.filter(users__pk=user.pk)
+        return Account.objects.filter(company__in=companys)
+
+
+class AccountsByCompList(generics.ListAPIView):
+    model = Account
+    serializer_class = AccountSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        user = self.request.user
+        comp_id = self.kwargs['company_id']
+        company = get_object_or_404(Company.objects.filter(users__pk=user.pk), pk=comp_id)
+        return Account.objects.filter(company=company)
 
 
 class CurrencyViewSet(viewsets.ModelViewSet):
