@@ -10,13 +10,8 @@ from .serializers import (
     BankBikSerializer,
 )
 
-
-def index(request):
-    return render(request, 'reports/base.html')
-
-
-def create_report(request):
-    return render(request, 'asht')
+def accts(request):
+    return render(request, 'reports/accts.html')
 
 
 class CompanysViewSet(viewsets.ModelViewSet):
