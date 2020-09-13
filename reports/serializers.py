@@ -49,8 +49,8 @@ class SuperAccountSerializer(serializers.ModelSerializer):
     currency_code = serializers.ReadOnlyField(source='currency.code')
     bank_name = serializers.ReadOnlyField(source='bank.name')
     bik = serializers.ReadOnlyField(source='bank.last_info.bik')
-    kpp = serializers.ReadOnlyField(source='bank.last_info.kpp')
-    inn = serializers.ReadOnlyField(source='bank.last_info.inn')
+    kpp = serializers.ReadOnlyField(source='company.last_info.kpp')
+    inn = serializers.ReadOnlyField(source='company.last_info.inn')
     company_name = serializers.ReadOnlyField(source='company.name')
     gofl = serializers.ReadOnlyField(source='company.last_info.company_type')
 
