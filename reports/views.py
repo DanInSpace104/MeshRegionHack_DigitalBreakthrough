@@ -35,7 +35,7 @@ class CompanysViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
 
 
-class ReportsViewSet(generics.ListAPIView):
+class ReportsListView(generics.ListAPIView):
     model = Report
     queryset = Report.objects.all()
     serializer_class = ReportSerializer
