@@ -5,7 +5,10 @@ click==7.1.2
 Django==3.1.1
 django-cors-headers==3.5.0
 djangorestframework==3.11.1
+et-xmlfile==1.0.1
+jdcal==1.4.1
 mypy-extensions==0.4.3
+openpyxl==3.0.5
 pathspec==0.8.0
 pytz==2020.1
 regex==2020.7.14

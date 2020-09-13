@@ -3,8 +3,11 @@ from django.views.generic import ListView
 from rest_framework import generics
 from rest_framework.decorators import api_view, renderer_classes
 from rest_framework import viewsets, permissions
+import os
 from .models import Company, Account, Bank, Currency, Report
 from rest_framework.response import Response
+from django.http import HttpResponse
+import mimetypes
 from create_report import create_report
 import json
 from .serializers import (
@@ -44,9 +47,19 @@ class ReportsListView(generics.ListAPIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def post(self, request, *args, **kwargs):
-        data = json.loads(self.request.POST['data'])
-        create_report(data)
-        return Response(status=200)
+        data = self.request.data
+        excel_file_name = create_report(data)
+        fp = open(excel_file_name, "rb")
+        response = HttpResponse(fp.read())
+        fp.close()
+
+        file_type = mimetypes.guess_type(excel_file_name)
+        if file_type is None:
+            file_type = 'application/octet-stream'
+        response['Content-Type'] = file_type
+        response['Content-Length'] = str(os.stat(excel_file_name).st_size)
+        response['Content-Disposition'] = "attachment; filename=report.xlsx"
+        return response
 
 
 @api_view(('POST',))
@@ -60,6 +73,11 @@ def change_accounts(request):
             acc.balance = bal
             acc.save()
             print(id)
+    return Response(status=200)
+
+
+# @api_view(('POST',))
+def change_accounts(request):
     return Response(status=200)
 
 
