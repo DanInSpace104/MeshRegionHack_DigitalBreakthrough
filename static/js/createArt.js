@@ -54,4 +54,5 @@ function onSubmit() {
             'sessionid': $.cookie('sessionid'),
         },
     );
+    window.location.href = "/reports/accts/";
 }
