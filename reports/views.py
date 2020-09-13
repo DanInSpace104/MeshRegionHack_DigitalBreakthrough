@@ -6,6 +6,7 @@ from rest_framework import viewsets, permissions
 import os
 from .models import Company, Account, Bank, Currency, Report
 from rest_framework.response import Response
+from rest_framework.renderers import JSONRenderer
 from django.http import HttpResponse
 import mimetypes
 from create_report import create_report
@@ -53,6 +54,7 @@ class ReportsListView(generics.ListAPIView):
 
 
 @api_view(('POST',))
+@renderer_classes([JSONRenderer])
 def change_accounts(request):
     data = request.POST
     for id, bal in data.items():
@@ -66,9 +68,12 @@ def change_accounts(request):
     return Response(status=200)
 
 
-# @api_view(('POST',))
-def change_accounts(request):
-    return Response(status=200)
+def choose_company(request):
+    data = request.POST.get('company_id')
+    # for id, bal in d
+    response = HttpResponse()
+    response.set_cookie('company_id', data)
+    return response
 
 
 class CompanysViewSet(viewsets.ModelViewSet):

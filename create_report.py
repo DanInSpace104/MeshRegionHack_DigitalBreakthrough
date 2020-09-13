@@ -29,17 +29,17 @@ def create_report(date):
     currency_code = [i['currency_code'] for i in date]
     summ = [i['summ'] for i in date]
     balance = [i['balance'] for i in date]
-    
+
     now = datetime.datetime.now()  # Текущая дата
     # now_format = now.strftime("%Y-%m-%d_%H-%M")
     now_format = now.strftime("%Y-%m-%d")
     directory = os.path.abspath(os.curdir)  # Директория
-    
+
     # Создаем подключение
     wb = Workbook()
     ws = wb.active
 
-    
+
     ws.merge_cells('B4:D4')
     ws.merge_cells('B5:D5')
     ws['A4'] = 'Организация'
