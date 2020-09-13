@@ -17,13 +17,9 @@
         <h1 class="h2">Счета</h1>
 
     </div>
-    <div class="row text-left">
-        <button class="btn btn-primary" onclick="onSave();">Сохранить Остатки</button>
-        <button class="btn btn-primary" onclick="onCreate();">Сформировать Отчет</button>
-    </div>
     <div class="row form-group">
         <div class="col-sm-12">
-            <input class="form-control" type="text" placeholder="Поиск по счетам">
+            <!-- <input class="form-control" type="text" placeholder="Поиск по счетам"> -->
         </div>
     </div>
     <hr>
@@ -34,6 +30,13 @@
         <ol id="accts_list">
 
         </ol>
+
+        <div class="row text-center">
+            <div class="col-sm-4"></div>
+            <div class="col-sm-2"><button class="btn btn-primary" onclick="onSave();">Сохранить Остатки</button></div>
+            <div class="col-sm-2"><button class="btn btn-primary" onclick="onCreate();">Сформировать Отчет</button></div>
+            <div class="col-sm-4"></div>
+        </div>
     </div>
 </main>
 {% endblock %} {% block bottomscript %}{% load static %}

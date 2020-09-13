@@ -49,17 +49,7 @@ class ReportsListView(generics.ListAPIView):
     def post(self, request, *args, **kwargs):
         data = self.request.data
         excel_file_name = create_report(data)
-        fp = open(excel_file_name, "rb")
-        response = HttpResponse(fp.read())
-        fp.close()
-
-        file_type = mimetypes.guess_type(excel_file_name)
-        if file_type is None:
-            file_type = 'application/octet-stream'
-        response['Content-Type'] = file_type
-        response['Content-Length'] = str(os.stat(excel_file_name).st_size)
-        response['Content-Disposition'] = "attachment; filename=report.xlsx"
-        return response
+        return HttpResponse(excel_file_name)
 
 
 @api_view(('POST',))

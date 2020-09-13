@@ -20,8 +20,11 @@ function getOrg() {
                 $('#orgMain').append(`
                 <option value="${d.id}">${d.name}</option>
                  `)
-                console.log(`${d.id}`);
             })
         }
     )
+}
+
+function seveOrg() {
+
 }

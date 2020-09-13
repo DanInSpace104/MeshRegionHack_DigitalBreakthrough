@@ -75,7 +75,7 @@ function onSave() {
             ...res
         },
     );
-    window.location.href = "/reports/accts/";
+    // window.location.href = "/reports/accts/";
 }
 
 function onCreate() {
@@ -83,8 +83,8 @@ function onCreate() {
         crossDomain: false, // obviates need for sameOrigin test
         beforeSend: function(xhr, settings) {
             xhr.setRequestHeader("X-CSRFToken", $.cookie('csrftoken'));
-
-        }
+        },
+        dataType: "text"
     });
     // let res = [];
 
@@ -92,6 +92,58 @@ function onCreate() {
         "/reports/reports/", {
             data: JSON.stringify(acts)
         },
+        downloadXLSX
     );
-    window.location.href = "/reports/accts/";
+    // window.location.href = "/reports/accts/";
+}
+
+function downloadXLSX(data) {
+    console.log(data);
+    linkText = '/static/' + data;
+
+
+    var link = document.createElement('a');
+
+
+
+    let pdflink = linkText;
+
+
+
+    link.setAttribute('href', pdflink);
+
+
+
+    //pdfname - имя файла для загрузки (как он будет называться у посетителя)
+
+    pdfname = 'report.xlsx';
+
+    link.setAttribute('download', pdfname);
+
+
+
+    link.setAttribute('target', '_blank');
+
+
+
+    link.style.display = 'none';
+
+
+
+    document.body.appendChild(link);
+
+
+
+    link.click();
+
+
+
+    document.body.removeChild(link);
+    // var bytes = new Uint8Array(data); // pass your byte response to this constructor
+
+    // var blob = new Blob([bytes], { type: "application/vnd.ms-excel" }); // change resultByte to bytes 
+    // var link = document.createElement('a');
+    // link.href = window.URL.createObjectURL(blob);
+    // link.download = "myFileName.xls";
+    // link.click();
 }
