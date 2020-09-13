@@ -19,7 +19,7 @@ class CompanyInfo(models.Model):
 
 
 class Bank(models.Model):
-    name = models.CharField(max_length=127)
+    name = models.CharField(max_length=127, unique=True)
 
     @property
     def last_info(self):
