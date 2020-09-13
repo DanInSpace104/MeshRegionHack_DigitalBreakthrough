@@ -39,8 +39,7 @@ class ReportsViewSet(generics.ListAPIView):
 
     def post(self, request, *args, **kwargs):
         data = self.request.POST['data']
-        reports_list = make_rep_list(data)
-        create_report(reports_list)
+        create_report(data)
         return Response(status=2000)
 
 
