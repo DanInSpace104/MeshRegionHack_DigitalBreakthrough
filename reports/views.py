@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, get_list_or_404
 from django.views.generic import ListView
 from rest_framework import generics
 from rest_framework import viewsets, permissions
@@ -25,6 +25,15 @@ class CompanysViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
 
 
+class CompanysViewSet(viewsets.ModelViewSet):
+    model = Company
+    serializer_class = CompanySerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        return get_list_or_404(Company, users__pk=self.request.user.pk)
+
+
 class BanksViewSet(viewsets.ModelViewSet):
     model = Bank
     queryset = Bank.objects.all()
@@ -41,7 +50,7 @@ class BankBiksViewSet(viewsets.ReadOnlyModelViewSet):
 class AccountsViewSet(viewsets.ModelViewSet):
     model = Account
     serializer_class = AccountSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    # permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
         user = self.request.user
@@ -65,4 +74,4 @@ class CurrencyViewSet(viewsets.ModelViewSet):
     model = Currency
     queryset = Currency.objects.all()
     serializer_class = CurrencySerializer
-    permission_classes = [permissions.IsAuthenticated]
+    # permission_classes = [permissions.IsAuthenticated]
