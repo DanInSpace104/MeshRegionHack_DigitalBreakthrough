@@ -2,7 +2,8 @@ from django.shortcuts import render, get_object_or_404, get_list_or_404
 from django.views.generic import ListView
 from rest_framework import generics
 from rest_framework import viewsets, permissions
-from .models import Company, Account, Bank, Currency
+from .models import Company, Account, Bank, Currency, Report
+from rest_framework.response import Response
 from .serializers import (
     CompanySerializer,
     BankSerializer,
@@ -10,6 +11,7 @@ from .serializers import (
     SuperAccountSerializer,
     CurrencySerializer,
     BankBikSerializer,
+    ReportSerializer,
 )
 
 def accts(request):
@@ -27,6 +29,19 @@ class CompanysViewSet(viewsets.ModelViewSet):
     queryset = Company.objects.all()
     serializer_class = CompanySerializer
     permission_classes = [permissions.IsAuthenticated]
+
+
+class ReportsViewSet(generics.ListAPIView):
+    model = Report
+    queryset = Report.objects.all()
+    serializer_class = ReportSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def post(self, request, *args, **kwargs):
+        data = self.request.POST['data']
+        create_report(data)
+        return Response(status=2000)
+
 
 
 class CompanysViewSet(viewsets.ModelViewSet):

@@ -1,5 +1,5 @@
 from rest_framework import routers, serializers, viewsets
-from .models import Bank, Company, Account, Currency
+from .models import Bank, Company, Account, Currency, Report, ReportInfo
 
 
 class CompanySerializer(serializers.ModelSerializer):
@@ -16,6 +16,13 @@ class BankSerializer(serializers.ModelSerializer):
     class Meta:
         model = Bank
         fields = '__all__'
+
+
+class ReportSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Report
+        fields = '__all__'
+
 
 
 class BankBikSerializer(serializers.ModelSerializer):

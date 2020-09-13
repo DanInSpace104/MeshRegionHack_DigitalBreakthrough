@@ -11,17 +11,17 @@ def create_report(file_format):
     Функция создания отчета, для дальнейшего вывода или отправки
     format - xls, xml, xlsx
     '''
-    # Берем данные из этих сущностей
-    from reports.models import Company
-    from reports.models import CompanyInfo
-    from reports.models import Bank
-    from reports.models import BankInfo
-    from reports.models import Report
-    from reports.models import ReportInfo
-    from reports.models import Currency
-    from reports.models import Account
-    os.environ['DJANGO_SETTINGS_MODULE'] = 'mrh.settings'
-    django.setup()
+    # # Берем данные из этих сущностей
+    # from reports.models import Company
+    # from reports.models import CompanyInfo
+    # from reports.models import Bank
+    # from reports.models import BankInfo
+    # from reports.models import Report
+    # from reports.models import ReportInfo
+    # from reports.models import Currency
+    # from reports.models import Account
+    # os.environ['DJANGO_SETTINGS_MODULE'] = 'mrh.settings'
+    # django.setup()
 
     # Берем из БД все нужные данные для отчета
     # print(Currency.objects.all().values("code"))
@@ -30,9 +30,15 @@ def create_report(file_format):
     # KPP = Company.objects.filter().values("KPP")
     # ...
     
-    # now_date = 'today' # Текущая дата
-    # if file_format == 'xls':
-    #     directory = os.path.abspath(os.curdir)  # Директория
+    
+
+    now = datetime.datetime.now()  # Текущая дата
+    now_format = now.strftime("%Y-%m-%d_%H-%M")
+    now_format = now.strftime("%Y-%m-%d")
+    a = [1, 2, 3]
+    # print(now_format)
+    if file_format == 'xls':
+        directory = os.path.abspath(os.curdir)  # Директория
     #     # Создаем подключение
     #     wb = Workbook()
     #     ws = wb.active
@@ -44,39 +50,51 @@ def create_report(file_format):
     #     # ws['A2'] = datetime.datetime.now()
 
     #     # Save the file
-    #     wb.save("sample.xml")
-    # elif file_format == 'xml':
-    #     # This is the parent (root) tag
-    #     # onto which other tags would be
-    #     # created
-    #     data = ET.Element('Info')
+    #     ws.merge_cells('C2:C4')
+    #     wb.save(f"{now_format}.xml")
+    elif file_format == 'xml':
+        data = ET.Element('Info')
 
-    #     # Adding a subtag named `Opening`
-    #     # inside our root tag
-    #     element1 = ET.SubElement(data, 'Organization')
+        # Создаются блоки
+        organ_block = ET.SubElement(data, 'Organization')
+        bank_block = ET.SubElement(data, 'Bank')
+        score_block = ET.SubElement(data, 'Score')
 
-    #     # Adding subtags under the `Opening`
-    #     # subtag
-    #     s_elem1 = ET.SubElement(element1, 'E4')
-    #     s_elem2 = ET.SubElement(element1, 'D4')
+        # Создаем элементы
+        ID_el = ET.SubElement(organ_block, 'ID')
+        INN_el = ET.SubElement(organ_block, 'INN')
+        KPP_el = ET.SubElement(organ_block, 'KPP')
+        go_fl_el = ET.SubElement(organ_block, 'go-fl')
 
-    #     # Adding attributes to the tags under
-    #     # `items`
-    #     s_elem1.set('type', 'Accepted')
-    #     s_elem2.set('type', 'Declined')
+        bik_el = ET.SubElement(bank_block, 'bik')
+        bank_name_el = ET.SubElement(bank_block, 'bank_name')
 
-    #     # Adding text between the `E4` and `D5`
-    #     # subtag
-    #     s_elem1.text = "King's Gambit Accepted"
-    #     s_elem2.text = "Queen's Gambit Declined"
+        # Наполняем элементы
+        ID_el.text = "902"
+        INN_el.text = "431320498712942"
+        KPP_el.text = "414126213"
+        go_fl_el.text = "go"
 
-    #     # Converting the xml data to byte object,
-    #     # for allowing flushing data to file
-    #     # stream
-    #     b_xml = ET.tostring(data)
+        bik_el.text = "532423432"
+        bank_name_el.text = "ВТБ Банк"
+        # bank_name_el.text = "ВТБ Банк"
 
-    #     # Opening a file under the name `items2.xml`,
-    #     # with operation mode `wb` (write + binary)
-    #     with open("sample.xml", "wb") as f:
-    #         f.write(b_xml)
+        # Для договоров, обходим в цикле, их несколько
+        for i in a:
+            date = ET.SubElement(score_block, f'contract_{i}')
+            date.text = "10.12.2020"
+            date = ET.SubElement(score_block, f'contract_{i}')
+            date.text = "10.12.2020"
 
+        # Converting the xml data to byte object,
+        # for allowing flushing data to file
+        # stream
+        b_xml = ET.tostring(data)
+
+        # Opening a file under the name `items2.xml`,
+        # with operation mode `wb` (write + binary)
+        with open(f"{now_format}.xml", "wb") as f:
+            f.write(b_xml)
+
+
+create_report('xml')
