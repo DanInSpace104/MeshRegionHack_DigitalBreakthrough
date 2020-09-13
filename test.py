@@ -4,4 +4,7 @@ import django
 django.setup()
 #####
 from reports.models import Company
+from reports.models import Bank
+
 print(Company.objects.all())
+print(Bank.objects.all())
