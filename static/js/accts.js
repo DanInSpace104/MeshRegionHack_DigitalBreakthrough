@@ -77,3 +77,21 @@ function onSave() {
     );
     window.location.href = "/reports/accts/";
 }
+
+function onCreate() {
+    $.ajaxSetup({
+        crossDomain: false, // obviates need for sameOrigin test
+        beforeSend: function(xhr, settings) {
+            xhr.setRequestHeader("X-CSRFToken", $.cookie('csrftoken'));
+
+        }
+    });
+    // let res = [];
+
+    $.post(
+        "/reports/reports/", {
+            data: JSON.stringify(acts)
+        },
+    );
+    window.location.href = "/reports/accts/";
+}

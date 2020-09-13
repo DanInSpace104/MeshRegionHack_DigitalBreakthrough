@@ -5,6 +5,8 @@ from rest_framework.decorators import api_view, renderer_classes
 from rest_framework import viewsets, permissions
 from .models import Company, Account, Bank, Currency, Report
 from rest_framework.response import Response
+from create_report import create_report
+import json
 from .serializers import (
     CompanySerializer,
     BankSerializer,
@@ -42,9 +44,8 @@ class ReportsListView(generics.ListAPIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def post(self, request, *args, **kwargs):
-        data = self.request.data
-        print(data)
-        # create_report(data)
+        data = json.loads(self.request.POST['data'])
+        create_report(data)
         return Response(status=200)
 
 
