@@ -1,3 +1,4 @@
+let acts;
 getAccts();
 
 function getAccts() {
@@ -14,6 +15,7 @@ function getAccts() {
 
         },
         (data) => {
+            acts = data;
             data.map((el) => {
                 $('#accts_list').append(`
                 <li>
@@ -52,4 +54,26 @@ function getAccts() {
             })
         }
     )
+}
+
+function onSave() {
+    let res = {}
+    acts.map(
+        (el) => {
+            res[el.id] = $(`#acct${el.id}`).val()
+        }
+    )
+    $.ajaxSetup({
+        crossDomain: false, // obviates need for sameOrigin test
+        beforeSend: function(xhr, settings) {
+            xhr.setRequestHeader("X-CSRFToken", $.cookie('csrftoken'));
+
+        }
+    });
+    $.post(
+        "/reports/change_accs/", {
+            ...res
+        },
+    );
+    window.location.href = "/reports/accts/";
 }

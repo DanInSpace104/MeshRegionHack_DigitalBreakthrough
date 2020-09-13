@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, get_list_or_404
 from django.views.generic import ListView
 from rest_framework import generics
+from rest_framework.decorators import api_view, renderer_classes
 from rest_framework import viewsets, permissions
 from .models import Company, Account, Bank, Currency, Report
 from rest_framework.response import Response
@@ -23,6 +24,9 @@ def createacct(request):
 def selectorg(request):
     return render(request, 'reports/selectorg.html')
 
+def adminpanel(request):
+    return render(request, 'reports/adminpanel.html')
+
 
 class CompanysViewSet(viewsets.ModelViewSet):
     model = Company
@@ -38,10 +42,24 @@ class ReportsViewSet(generics.ListAPIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def post(self, request, *args, **kwargs):
-        data = self.request.POST['data']
-        create_report(data)
-        return Response(status=2000)
+        data = self.request.data
+        print(data)
+        # create_report(data)
+        return Response(status=200)
 
+
+@api_view(('POST',))
+def change_accounts(request):
+    data = request.POST
+    for id, bal in data.items():
+        id = int(id)
+        bal = int(bal)
+        acc = Account.objects.get(pk=id)
+        if acc.balance != bal:
+            acc.balance = bal
+            acc.save()
+            print(id)
+    return Response(status=200)
 
 
 class CompanysViewSet(viewsets.ModelViewSet):
