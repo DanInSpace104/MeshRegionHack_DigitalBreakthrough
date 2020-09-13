@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <title>Авторизация</title>
+    <!-- Bootstrap core CSS111 -->
+    <link rel="stylesheet" href="{% static 'style/bootstrap.css' %}">
+
+    <!-- Custom styles for this template -->
+    <link href="{% static 'style/login.css' %}" rel="stylesheet">
+
+</head>
+
+<body class="text-center">
+
+{% block content %}
+{% if form.errors and not form.non_field_errors %}
+<p class="errornote">
+{% if form.errors.items %}
+  Исправьте ошибки!
+{% endif %}
+</p>
+{% endif %}
+
+{% if form.non_field_errors %}
+{% for error in form.non_field_errors %}
+<p class="errornote">
+    {{ error }}
+</p>
+{% endfor %}
+{% endif %}
+
+<div id="content-main">
+
+{% if user.is_authenticated %}
+<p class="errornote">
+    You are authenticated as {{ username }}, but are not authorized to
+    access this page. Would you like to login to a different account?
+</p>
+{% endif %}
+
+<form class="form-signin" action="{{ app_path }}" method="post" id="login-form">{% csrf_token %}
+  <img class="mb-4" src="{% static 'images/logo.png' %}" alt="" width="75" height="85">
+  <h1 class="h3 mb-3 font-weight-normal">Пожалуйста авторизуйтесь</h1>
+  <input type="text" id="inputLogin" class="form-control" placeholder="Login" required="" autofocus="" name="username">
+  {{ form.username.errors }}
+  <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required="">
+  {{ form.password.errors }}
+  <input type="hidden" name="next" value="{{ next }}">
+  <button class="btn btn-lg btn-primary btn-block" type="submit">Войти</button>
+  <p class="mt-5 mb-3 text-muted">© МежРегионХак, 2020</p>
+</form>
+
+</div>
+{% endblock %}
