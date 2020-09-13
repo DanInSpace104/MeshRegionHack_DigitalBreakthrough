@@ -9,10 +9,25 @@ class Company(models.Model):
     def __str__(self):
         return self.name
 
+    @property
+    def last_info(self):
+        return self.infos.all().order_by('creation_time')[0]
+
 
 class CompanyInfo(models.Model):
-    company = models.ForeignKey(Company, on_delete=models.CASCADE)
+    company = models.ForeignKey(Company, on_delete=models.CASCADE, related_name='infos')
     creation_time = models.DateTimeField(auto_now=True)
+    inn = models.IntegerField(null=True)
+    kpp = models.IntegerField(null=True)
+    GO = 'ГО'
+    FL = 'ФЛ'
+    COMPANY_TYPES = (
+        (GO, 'ГО'),
+        (FL,'ФЛ'),
+    )
+    company_type = models.CharField(max_length=3, choices=COMPANY_TYPES, default=GO)
+
+
 
     def __str__(self):
         return str(self.company)
@@ -76,8 +91,10 @@ class Account(models.Model):
         (CRED, 'credit'),
     )
     acc_type = models.CharField(max_length=15, choices=ACCOUNT_TYPES, default=DEP)
-    money = models.FloatField(default=0)
+    balance = models.FloatField(default=0)
+    summ = models.FloatField(default=0)
     contract_create_date = models.DateField(auto_now=True)
     contract_begin_date = models.DateField()
+    comment = models.TextField(null=True)
     contract_end_date = models.DateField()
     settlement_rate = models.FloatField(default=0)

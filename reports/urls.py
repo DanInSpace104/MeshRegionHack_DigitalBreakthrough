@@ -6,6 +6,7 @@ router = routers.DefaultRouter()
 router.register('companys', views.CompanysViewSet, basename='companys')
 router.register('banks', views.BanksViewSet, basename='banks')
 router.register('accounts', views.AccountsViewSet, basename='accounts')
+router.register('superaccounts', views.AccountsViewSet, basename='accounts')
 router.register('currencys', views.CurrencyViewSet, basename='currencys')
 router.register('bankbiks', views.BankBiksViewSet, basename='bankbiks')
 

@@ -7,6 +7,7 @@ from .serializers import (
     CompanySerializer,
     BankSerializer,
     AccountSerializer,
+    SuperAccountSerializer,
     CurrencySerializer,
     BankBikSerializer,
 )
@@ -78,3 +79,14 @@ class CurrencyViewSet(viewsets.ModelViewSet):
     queryset = Currency.objects.all()
     serializer_class = CurrencySerializer
     # permission_classes = [permissions.IsAuthenticated]
+
+
+class AccountsViewSet(viewsets.ModelViewSet):
+    model = Account
+    serializer_class = SuperAccountSerializer
+    # permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        user = self.request.user
+        companys = Company.objects.filter(users__pk=user.pk)
+        return Account.objects.filter(company__in=companys)
