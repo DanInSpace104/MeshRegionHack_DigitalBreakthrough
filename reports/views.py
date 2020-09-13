@@ -34,7 +34,7 @@ class BanksViewSet(viewsets.ModelViewSet):
 
 class BankBiksViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = BankBikSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    # permission_classes = [permissions.IsAuthenticated]
     queryset = Bank.objects.all()
 
 

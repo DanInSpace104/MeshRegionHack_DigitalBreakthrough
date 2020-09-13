@@ -14,4 +14,5 @@ urlpatterns = [
     path('api/', include('rest_framework.urls')),
     path('accs_by_company/<company_id>', views.AccountsByCompList.as_view(), name='accs_by_comp'),
     path('accts/', views.accts),
+    path('createacct/', views.createacct),
 ]
