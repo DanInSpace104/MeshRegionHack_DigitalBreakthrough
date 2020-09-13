@@ -15,4 +15,5 @@ urlpatterns = [
     path('accs_by_company/<company_id>', views.AccountsByCompList.as_view(), name='accs_by_comp'),
     path('accts/', views.accts),
     path('createacct/', views.createacct),
+    path('selectorg/', views.selectorg),
 ]

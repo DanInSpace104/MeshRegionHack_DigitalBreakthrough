@@ -119,4 +119,6 @@
         </ol>
     </div>
 </main>
-{% endblock %} {% block bottomscript %} {% endblock %}
+{% endblock %} {% block bottomscript %}{% load static %}
+<script src="{% static 'js/createArt.js'%}"></script>
+{% endblock %}

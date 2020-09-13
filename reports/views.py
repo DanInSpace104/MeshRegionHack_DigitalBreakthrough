@@ -17,6 +17,9 @@ def accts(request):
 def createacct(request):
     return render(request, 'reports/createacct.html')
 
+def selectorg(request):
+    return render(request, 'reports/selectorg.html')
+
 
 class CompanysViewSet(viewsets.ModelViewSet):
     model = Company

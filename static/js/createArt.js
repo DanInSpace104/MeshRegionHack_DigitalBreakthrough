@@ -32,17 +32,26 @@ function onBankChange() {
     $('#bikInput').val(banks[$('#banksSelect').val()]['bik']);
 }
 
-function onSubmit(){
+function onSubmit() {
+    $.ajaxSetup({
+        crossDomain: false, // obviates need for sameOrigin test
+        beforeSend: function(xhr, settings) {
+            xhr.setRequestHeader("X-CSRFToken", $.cookie('csrftoken'));
+
+        }
+    });
     $.post(
         "/reports/accounts/", {
             'acc_type': $('#acc_typeSelect').val(),
             'money': $('#moneyInput').val(),
             'contract_begin_date': $('#begDateInput').val(),
+            'currency': $('#currencySelect').val(),
             'contract_end_date': $('#endDateInput').val(),
             'settlement_rate': $('#settlementRateInput').val(),
             'bank': $('#banksSelect').val(),
             'company': 1,
-            'csrfmiddlewaretoken': $.cookie('csrftoken'),
+            'X-CSRFToken': $.cookie('csrftoken'),
+            'sessionid': $.cookie('sessionid'),
         },
     );
 }
