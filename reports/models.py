@@ -5,7 +5,14 @@ from django.contrib.auth.models import User
 class Company(models.Model):
     name = models.CharField(max_length=127)
     users = models.ManyToManyField(User)
-
+    INN = models.IntegerField(max_length=12)
+    KPP = models.IntegerField(max_length=9)
+    GO = 'ГО'
+    FL = 'ФЛ'
+    ACCOUNT_TYPES = (
+        (GO, 'ГО'),
+        (FL,'ФЛ'),
+    )
     def __str__(self):
         return self.name
 
