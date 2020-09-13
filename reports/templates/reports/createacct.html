@@ -160,13 +160,13 @@
             <div class="row form-group ">
                 <label class="col-sm-2 form-label " for=" ">Расчетная ставка</label>
                 <div class="col-sm-10 ">
-                    <input class="form-control " type="text ">
+                    <input class="form-control " id="settlementRateInput" type="number" step="0.01">
                 </div>
             </div>
             <div class="row form-group">
                 <label class="col-sm-1 form-label " for=" ">Вид договора</label>
                 <div class="col-sm-5 ">
-                    <select class="form-control " name="" id="">
+                    <select class="form-control " name="" id="acc_typeSelect">
                             <option value="">
                                 Депозит
                             </option>
@@ -183,30 +183,27 @@
             <div class="row form-group ">
                 <label class="col-sm-1 form-label " for=" ">Начало</label>
                 <div class="col-sm-5 ">
-                    <input class="form-control" type="date">
+                    <input class="form-control" id="begDateInput" type="date">
                 </div>
                 <label class="col-sm-1 form-label " for=" ">Конец</label>
                 <div class="col-sm-5 ">
-                    <input class="form-control" type="date">
+                    <input class="form-control" id="endDateInput" type="date">
                 </div>
             </div>
 
             <div class="row form-group ">
                 <label class="col-sm-1 form-label " for=" ">Валюта</label>
                 <div class="col-sm-5 ">
-                    <select class="form-control" name="" id="id1">
-                            <option value="">RUR</option>
-                            <option value="">EUR</option>
-                            <option value="">USD</option>
-                        </select>
+                    <select class="form-control" name="" id="currencySelect">
+                    </select>
                 </div>
                 <label class="col-sm-1 form-label " for=" ">Сумма</label>
                 <div class="col-sm-5 ">
-                    <input class="form-control " type="text ">
+                    <input class="form-control " id="moneyInput" type="number" step="0.01">
                 </div>
             </div>
 
-            <button class="btn btn-primary">Отправить</button>
+            <button class="btn btn-primary" onclick="onSubmit();">Отправить</button>
 
 
         </main>
