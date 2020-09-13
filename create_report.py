@@ -3,6 +3,7 @@ import datetime
 from openpyxl import Workbook
 import os
 import xml.etree.ElementTree as ET
+from mrh.settings import BASE_DIR
 
 
 def create_report(date):
@@ -158,8 +159,9 @@ def create_report(date):
         comment_el.text = str(comment[i])
 
     b_xml = ET.tostring(global_class)
-    directory = os.path.abspath(os.curdir)
-    save_name = str(company_name[0])+ '_' + str(now_format)
+    # directory = os.path.abspath(os.curdir)
+    directory = os.path.join(BASE_DIR, 'static')
+    save_name = os.path.join(directory, str(company_name[0])+ '_' + str(now_format))
     save_dir = [directory+save_name+'.xlsx',
                 directory+save_name+'.xls',
                 directory+save_name+'.xml']
@@ -167,7 +169,7 @@ def create_report(date):
         f.write(b_xml)
     wb.save(f"{save_name}.xls")
     wb.save(f"{save_name}.xlsx")
-    return (save_dir)
+    print (save_dir)
 
 
 date = [
