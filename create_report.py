@@ -89,7 +89,7 @@ def create_report(date):
     ws['P9'] = 'Расчитанная ставка в годовых, %'
     ws['Q9'] = 'Валюта'
     ws['Q10'] = 'Международный код'
-    ws['R10'] = 'Сумма'
+    ws['R9'] = 'Сумма'
     # ws.append([1, 2, 3])
     for i in range(len(date)):
         ws[f'A{12+i}'] = f'{i}'
@@ -169,7 +169,7 @@ def create_report(date):
         f.write(b_xml)
     wb.save(f"{save_name}.xls")
     wb.save(f"{save_name}.xlsx")
-    print (save_dir)
+    return(save_dir)
 
 
 date = [
