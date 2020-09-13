@@ -48,8 +48,12 @@ class ReportsListView(generics.ListAPIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def post(self, request, *args, **kwargs):
-        data = self.request.data
+        data = self.request.POST
+        data = json.loads(data['data'])
+        # print("data", json.loads(data['data']))
         excel_file_name = create_report(data)
+        print("excel_file_name", excel_file_name)
+        # excel_file_name = ''
         return HttpResponse(excel_file_name)
 
 
