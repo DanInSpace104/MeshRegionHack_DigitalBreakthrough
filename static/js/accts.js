@@ -1,6 +1,4 @@
-// function saveOrg() {
-
-// }
+getAccts();
 
 function getAccts() {
 
@@ -20,16 +18,19 @@ function getAccts() {
                 $('#accts_list').append(`
                 <li>
                 <div class="row">
-                    <div class="col-sm-7">
-                        <h4 class="font-weight-bold text-info">Депозит, Сбербанк, 50 000 000</h4>
+                    <div class="col-sm-9">
+                        <h4 class="font-weight-bold text-info">${el.acc_type}, ${el.bank_name}, ${el.summ}</h4>
                         <span class="font-weight-bold">БИК:</span>
-                        <span>46721476</span>,
+                        <span>${el.bik}</span>,
                         <span class="font-weight-bold">Дата заключения:</span>
-                        <span>03.05.2020</span><br>
+                        <span>${el.contract_create_date}</span>,
+                        <span class="font-weight-bold">Валюта</span>
+                        <span>${el.currency_code}</span><br>
                         <span class="font-weight-bold">Период</span>
-                        <span>05.06.2020 - 10.20.2025</span>,
+                        <span>${el.contract_begin_date} - ${el.contract_end_date}</span>,
                         <span class="font-weight-bold">Процентная ставка:</span>
-                        <span> 5,6%</span><br>
+                        <span>${el.settlement_rate}</span>
+                        <br>
                     </div>
                     <div class="col-sm-3">
                     </div>
@@ -38,21 +39,9 @@ function getAccts() {
                 <div class="row">
                     <div class="col-sm-5">
                         <div class="form-group row">
-                            <label for="id1" class="col-form-label col-sm-3 text-right">Валюта:</label>
+                            <label for="acct${el.id}" class="col-form-label col-sm-3 text-right">Остаток:</label>
                             <div class="col-sm-9">
-                                <select class="form-control" name="" id="id1">
-                                    <option value="">RUR</option>
-                                    <option value="">EUR</option>
-                                    <option value="">USD</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-5">
-                        <div class="form-group row">
-                            <label for="id2" class="col-form-label col-sm-3 text-right">Остаток:</label>
-                            <div class="col-sm-9">
-                                <input class="form-control" type="text" id="id2">
+                                <input class="form-control" type="number" step="0.01" value="${el.balance}" id="acct${el.id}">
                             </div>
                         </div>
                     </div>

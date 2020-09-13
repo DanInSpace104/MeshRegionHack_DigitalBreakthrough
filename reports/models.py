@@ -83,17 +83,17 @@ class Account(models.Model):
     bank = models.ForeignKey(Bank, on_delete=models.PROTECT)
     company = models.ForeignKey(Company, null=True, on_delete=models.CASCADE)
     currency = models.ForeignKey(Currency, on_delete=models.PROTECT)
-    CRED = 'credit'
-    DEP = 'deposit'
+    CRED = 'Кредит'
+    DEP = 'Депозит'
     ACCOUNT_TYPES = (
-        (DEP, 'deposit'),
-        (CRED, 'credit'),
+        (DEP, 'Депозит'),
+        (CRED, 'Кредит'),
     )
     acc_type = models.CharField(max_length=15, choices=ACCOUNT_TYPES, default=DEP)
     balance = models.FloatField(default=0)
     summ = models.FloatField(default=0)
     contract_create_date = models.DateField(auto_now=True)
     contract_begin_date = models.DateField()
-    comment = models.TextField(null=True)
+    comment = models.TextField(null=True, blank=True)
     contract_end_date = models.DateField()
     settlement_rate = models.FloatField(default=0)
