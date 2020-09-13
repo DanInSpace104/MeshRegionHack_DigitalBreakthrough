@@ -43,13 +43,14 @@ function onSubmit() {
     $.post(
         "/reports/accounts/", {
             'acc_type': $('#acc_typeSelect').val(),
-            'money': $('#moneyInput').val(),
+            'summ': $('#summInput').val(),
+            'balance': $('#balanceInput').val(),
             'contract_begin_date': $('#begDateInput').val(),
             'currency': $('#currencySelect').val(),
             'contract_end_date': $('#endDateInput').val(),
             'settlement_rate': $('#settlementRateInput').val(),
             'bank': $('#banksSelect').val(),
-            'company': 1,
+            'company': $.cookie('org_id'),
             'X-CSRFToken': $.cookie('csrftoken'),
             'sessionid': $.cookie('sessionid'),
         },
