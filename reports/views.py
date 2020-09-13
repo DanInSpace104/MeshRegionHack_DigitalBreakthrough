@@ -98,14 +98,14 @@ class BanksViewSet(viewsets.ModelViewSet):
 
 class BankBiksViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = BankBikSerializer
-    # permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated]
     queryset = Bank.objects.all()
 
 
 class AccountsViewSet(viewsets.ModelViewSet):
     model = Account
     serializer_class = AccountSerializer
-    # permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
         user = self.request.user
@@ -129,13 +129,13 @@ class CurrencyViewSet(viewsets.ModelViewSet):
     model = Currency
     queryset = Currency.objects.all()
     serializer_class = CurrencySerializer
-    # permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated]
 
 
 class AccountsViewSet(viewsets.ModelViewSet):
     model = Account
     serializer_class = SuperAccountSerializer
-    # permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
         user = self.request.user
